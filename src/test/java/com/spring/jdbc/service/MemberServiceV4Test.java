@@ -1,7 +1,9 @@
 package com.spring.jdbc.service;
 
 import com.spring.jdbc.domain.Member;
+import com.spring.jdbc.repository.MemberRepository;
 import com.spring.jdbc.repository.MemberRepositoryV4_1;
+import com.spring.jdbc.repository.MemberRepositoryV4_2;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
@@ -38,7 +40,7 @@ class MemberServiceV4Test {
     public static final String MEMBER_EX = "ex";
 
     @Autowired
-    private MemberRepositoryV4_1 memberRepository;
+    private MemberRepository memberRepository;
     @Autowired
     private MemberServiceV4 memberService;
 
@@ -55,13 +57,14 @@ class MemberServiceV4Test {
         }
 
         @Bean
-        MemberRepositoryV4_1 memberRepositoryV4_1() {
-            return new MemberRepositoryV4_1(dataSource());
+        MemberRepository memberRepository() {
+//            return new MemberRepositoryV4_1(dataSource());
+            return new MemberRepositoryV4_2(dataSource());
         }
 
         @Bean
         MemberServiceV4 memberServiceV4() {
-            return new MemberServiceV4(memberRepositoryV4_1());
+            return new MemberServiceV4(memberRepository());
         }
 
     }
